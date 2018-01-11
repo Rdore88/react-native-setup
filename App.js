@@ -1,46 +1,24 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, Image } from 'react-native';
+import { AppRegistry, Text, TextInput, View } from 'react-native';
 
-
-class Blink extends Component {
+export default class PizzaTranslator extends Component {
   constructor(props){
     super(props);
-    this.state = {showText: true}
-
-    setInterval(() => {
-      this.setState(previousState => {
-        return { showText: !previousState.showText };
-      });
-    }, 1000);
+    this.state = { text: ''};
   }
 
   render() {
-    let display = this.state.showText ? this.props.text : '';
     return (
-      <Text>{display}</Text>
-    );
-  }
-}
-
-
-export default class BlinkApp extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Blink text='I love to blink' />
-        <Blink text='I love to blink' />
-        <Blink text='I love to blink' />
-        <Blink text='I love to blink' />
+      <View style={{padding: 10}}>
+        <TextInput
+          style={{height: 40}}
+          placeholder="Type here to translate"
+          onChangeText={(text) => this.setState({text})}
+        />
+        <Text style={{padding: 10, fontSize: 42}}>
+          {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
+        </Text>
       </View>
-    );
+    )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
